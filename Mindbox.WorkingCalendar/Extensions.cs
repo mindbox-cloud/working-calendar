@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Statistics
+namespace Mindbox.WorkingCalendar
 {
 	public static class Extensions
 	{
