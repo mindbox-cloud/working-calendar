@@ -74,10 +74,10 @@ namespace Mindbox.WorkingCalendar
 		}
 
 		/// <summary>
-		/// Вычисляет количество полных рабочих дней в периоде, учитывая праздничные дни.
+		/// Computes whole working days count in period considering holidays and extra working days.
 		/// </summary>
-		/// <param name="startDateTime">Дата начала периода (включительно).</param>
-		/// <param name="endDateTime">Дата окончания периода (не включительно).</param>
+		/// <param name="startDateTime">Period start date and time.</param>
+		/// <param name="endDateTime">Period end date and time.</param>
 		public int CountWorkingDaysInPeriod(DateTime startDateTime, DateTime endDateTime)
 		{
 			if (endDateTime < startDateTime)
@@ -113,11 +113,6 @@ namespace Mindbox.WorkingCalendar
 			return totalElapsedDays - weekendDays - holidays + workingWeekendDays;
 		}
 
-		/// <summary>
-		/// Получает исключения за период.
-		/// </summary>
-		/// <param name="startDateTime">Дата начала периода (включительно).</param>
-		/// <param name="endDateTime">Дата окончания периода (не включительно).</param>
 		private IReadOnlyCollection<KeyValuePair<DateTime, DayType>> GetExceptionsInPeriod(
 			DateTime startDateTime, DateTime endDateTime)
 		{
