@@ -19,7 +19,7 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard1.4</TargetFramework>
 		<PackageId>Mindbox.WorkingCalendar</PackageId>
-		<PackageVersion>1.0.0</PackageVersion>
+		<PackageVersion>1.0.1</PackageVersion>
 		<Authors>Mindbox</Authors>
 		<Description>Helpers for counting working days and holidays. Includes working days exceptions for Russia.</Description>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
