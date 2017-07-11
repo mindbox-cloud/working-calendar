@@ -195,5 +195,12 @@ namespace Mindbox.WorkingCalendar.Tests
 			var workingDays = calendar.CountWorkingDaysInPeriod(fridayMorning, tuesdayMorning);
 			Assert.AreEqual(2, workingDays);
 		}
+
+		[TestMethod]
+		public void CountWorkingDaysInPeriod_ForRussia_Works()
+		{
+			Assert.AreEqual(1, 
+				WorkingCalendar.Russia.CountWorkingDaysInPeriod(new DateTime(2017, 07, 10), new DateTime(2017, 07, 11)));
+		}
 	}
 }

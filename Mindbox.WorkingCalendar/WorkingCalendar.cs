@@ -59,7 +59,7 @@ namespace Mindbox.WorkingCalendar
 
 		public DayType GetDayType(DateTime dateTime)
 		{
-			if (exceptions.TryGetValue(dateTime.Date, out var result))
+			if (Exceptions.TryGetValue(dateTime.Date, out var result))
 			{
 				return result;
 			}
