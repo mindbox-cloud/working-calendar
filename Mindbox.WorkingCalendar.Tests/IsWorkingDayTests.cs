@@ -118,9 +118,15 @@ namespace Mindbox.WorkingCalendar.Tests
 		}
 
 		[TestMethod]
+		public void IsWorkingDay_ForRussia_WorkingDay()
+		{
+			Assert.IsTrue(WorkingCalendar.Russia.IsWorkingDay(new DateTime(2018, 01, 09)));
+		}
+
+		[TestMethod]
 		public void IsWorkingDay_ForRussia_Works()
 		{
-			Assert.IsTrue(WorkingCalendar.Russia.IsWorkingDay(new DateTime(2017, 07, 10)));
+			Assert.IsFalse(WorkingCalendar.Russia.IsWorkingDay(new DateTime(2018, 01, 08)));
 		}
 	}
 }
