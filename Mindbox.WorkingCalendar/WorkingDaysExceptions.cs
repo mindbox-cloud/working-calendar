@@ -58,9 +58,8 @@ namespace Mindbox.WorkingCalendar
 
 		private static string GetCalendarStringData()
 		{
-			const int maxAttemptCount = 3;
-			var attemptNumber = 1;
-			while (true)
+			var exceptions = new List<Exception>();
+			for (var attempt = 0; attempt < 3; attempt++)
 			{
 				try
 				{
@@ -68,13 +67,12 @@ namespace Mindbox.WorkingCalendar
 						.GetStringAsync($"http://xmlcalendar.ru/data/ru/{DateTime.Now.Year}/calendar.xml")
 						.Result;
 				}
-				catch (SocketException)
+				catch (SocketException ex)
 				{
-					if (attemptNumber == maxAttemptCount + 1)
-						throw;
+					exceptions.Add(ex);
 				}
-				attemptNumber++;
 			}
+			throw new AggregateException(exceptions);
 		}
 	}
 }
