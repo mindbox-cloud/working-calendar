@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Sockets;
 using System.Xml.Linq;
 
 namespace Mindbox.WorkingCalendar
@@ -10,7 +11,7 @@ namespace Mindbox.WorkingCalendar
 	{
 		public static Dictionary<DateTime, DayType> GetForRussia()
 		{
-			var exceptionsStringData = new HttpClient().GetStringAsync($"http://xmlcalendar.ru/data/ru/{DateTime.Now.Year}/calendar.xml").Result;
+			var exceptionsStringData = GetCalendarStringData();
 			var exceptionsXml = XDocument.Parse(exceptionsStringData);
 			var exceptionDayElements = exceptionsXml
 				.Root
@@ -53,6 +54,27 @@ namespace Mindbox.WorkingCalendar
 			}
 
 			return result;
+		}
+
+		private static string GetCalendarStringData()
+		{
+			const int maxAttemptCount = 3;
+			var attemptNumber = 1;
+			while (true)
+			{
+				try
+				{
+					return new HttpClient()
+						.GetStringAsync($"http://xmlcalendar.ru/data/ru/{DateTime.Now.Year}/calendar.xml")
+						.Result;
+				}
+				catch (SocketException)
+				{
+					if (attemptNumber == maxAttemptCount + 1)
+						throw;
+				}
+				attemptNumber++;
+			}
 		}
 	}
 }
