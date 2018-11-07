@@ -1,8 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net47</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
     <RootNamespace>Mindbox.WorkingCalendar.Tests</RootNamespace>
     <AssemblyName>Mindbox.WorkingCalendar.Tests</AssemblyName>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="MSTest.TestAdapter" Version="1.2.0" />

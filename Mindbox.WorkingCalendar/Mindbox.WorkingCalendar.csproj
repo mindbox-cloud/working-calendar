@@ -1,21 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="RestSharp" Version="106.5.4" />
     <PackageReference Include="System.Net.Http" Version="4.3.3" />
   </ItemGroup>
 	<PropertyGroup>
-		<TargetFramework>netstandard1.4</TargetFramework>
+		<TargetFramework>netstandard2.0</TargetFramework>
 		<PackageId>Mindbox.WorkingCalendar</PackageId>
 		<PackageVersion>1.0.4</PackageVersion>
 		<Authors>Mindbox</Authors>
 		<Description>Helpers for counting working days and holidays. Includes working days exceptions for Russia.</Description>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 		<PackageReleaseNotes>First release</PackageReleaseNotes>
-		<Copyright>Copyright 2017 (c) Mindbox.</Copyright>
+		<Copyright>Copyright 2018 (c) Mindbox.</Copyright>
 		<PackageTags>calendar datetime</PackageTags>
+		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 	<PropertyGroup>
 		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 		<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+		<Version>1.0.1</Version>
 	</PropertyGroup>
 </Project>

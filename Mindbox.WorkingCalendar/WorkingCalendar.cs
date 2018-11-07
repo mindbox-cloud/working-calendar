@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Mindbox.WorkingCalendar
 {
-	public class WorkingCalendar
+	public sealed class WorkingCalendar
 	{
 		private static readonly Dictionary<DayOfWeek, int> dayOfWeekOffsets = new Dictionary<DayOfWeek, int>
 		{
@@ -17,14 +17,11 @@ namespace Mindbox.WorkingCalendar
 			[DayOfWeek.Sunday] = 6
 		};
 
-		public static WorkingCalendar Russia { get; } = new WorkingCalendar(WorkingDaysExceptions.GetForRussia);
-
+		public static WorkingCalendar Russia { get; } = new WorkingCalendar(new RussianWorkingDaysExceptionsProvider());
 		
-		private readonly Func<IDictionary<DateTime, DayType>> exceptionsProvider;
-		private IDictionary<DateTime, DayType> exceptions;
+		private readonly IWorkingDaysExceptionsProvider exceptionsProvider;
 
-
-		public WorkingCalendar(Func<IDictionary<DateTime, DayType>> exceptionsProvider)
+		public WorkingCalendar(IWorkingDaysExceptionsProvider exceptionsProvider)
 		{
 			if (exceptionsProvider == null)
 				throw new ArgumentNullException(nameof(exceptionsProvider));
@@ -32,15 +29,9 @@ namespace Mindbox.WorkingCalendar
 			this.exceptionsProvider = exceptionsProvider;
 		}
 
-		public WorkingCalendar(IDictionary<DateTime, DayType> exceptions)
+		public WorkingCalendar(IDictionary<DateTime, DayType> exceptions) : this(new FixedWorkingDaysExceptionsProvider(exceptions))
 		{
-			if (exceptions == null)
-				throw new ArgumentNullException(nameof(exceptions));
-
-			this.exceptions = exceptions;
 		}
-
-		private IDictionary<DateTime, DayType> Exceptions => exceptions ?? (exceptions = exceptionsProvider());
 
 		public bool IsWorkingDay(DateTime dateTime)
 		{
@@ -59,7 +50,7 @@ namespace Mindbox.WorkingCalendar
 
 		public DayType GetDayType(DateTime dateTime)
 		{
-			if (Exceptions.TryGetValue(dateTime.Date, out var result))
+			if (exceptionsProvider.TryGet(dateTime.Date, out var result))
 			{
 				return result;
 			}
@@ -93,11 +84,15 @@ namespace Mindbox.WorkingCalendar
 			var daysFromNearestMonday = dayOfWeekOffsets[startDateTimeRounded.DayOfWeek] + totalElapsedDays;
 			var weekendDays = (daysFromNearestMonday / 7) * 2 + (daysFromNearestMonday % 7 == 6 ? 1 : 0);
 
-			var exceptionsInPeriod = GetExceptionsInPeriod(startDateTimeRounded, endDateTimeRounded);
-			var holidays = exceptionsInPeriod.Count(pair => pair.Value == DayType.Holiday);
-			var workingWeekendDays = 
-				exceptionsInPeriod.Count(pair => pair.Value == DayType.Working) + 
-				exceptionsInPeriod.Where(pair => pair.Value == DayType.Short).Count(pair => pair.Key.DayOfWeek.IsWeekend());
+			var exceptionsInPeriod = exceptionsProvider.GetExceptionsInPeriod(startDateTimeRounded, endDateTimeRounded).ToArray();
+
+			var nonWeekendHolidays = exceptionsInPeriod
+				.Where(exception => exception.DayType == DayType.Holiday)
+				.Count(exception => !exception.Date.DayOfWeek.IsWeekend());
+
+			var workingWeekendDays = exceptionsInPeriod
+				.Where(exception => exception.DayType == DayType.Working || exception.DayType == DayType.Short)
+				.Count(exception => exception.Date.DayOfWeek.IsWeekend());
 
 			var dateParts = TimeSpan.Zero;
 			if (IsWorkingDay(startDateTime))
@@ -110,16 +105,33 @@ namespace Mindbox.WorkingCalendar
 			}
 			totalElapsedDays += (int)dateParts.TotalDays;
 
-			return totalElapsedDays - weekendDays - holidays + workingWeekendDays;
+			return totalElapsedDays - weekendDays - nonWeekendHolidays + workingWeekendDays;
 		}
 
-		private IReadOnlyCollection<KeyValuePair<DateTime, DayType>> GetExceptionsInPeriod(
-			DateTime startDateTime, DateTime endDateTime)
+
+		/// <summary>
+		/// Computes DateTime in `daysToAdd` working days after `dateTime`.
+		/// </summary>
+		public DateTime AddWorkingDays(DateTime dateTime, int daysToAdd)
 		{
-			return Exceptions
-				.Where(pair => pair.Key >= startDateTime)
-				.Where(pair => pair.Key < endDateTime)
-				.ToArray();
+			if (daysToAdd == 0)
+				return dateTime;
+
+			var result = dateTime;
+
+			var oneDayPeriod = daysToAdd > 0 ? 1 : -1;
+			var addedDays = 0;
+
+			while (addedDays != daysToAdd)
+			{
+				result += TimeSpan.FromDays(oneDayPeriod);
+				if (IsWorkingDay(result))
+				{
+					addedDays += oneDayPeriod;
+				}
+			}
+
+			return result;
 		}
 	}
 }

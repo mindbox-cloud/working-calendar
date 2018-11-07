@@ -197,10 +197,29 @@ namespace Mindbox.WorkingCalendar.Tests
 		}
 
 		[TestMethod]
-		public void CountWorkingDaysInPeriod_ForRussia_Works()
+		public void FromFridayToMondaySaturdayIsHoliday()
 		{
-			Assert.AreEqual(1, 
-				WorkingCalendar.Russia.CountWorkingDaysInPeriod(new DateTime(2017, 07, 10), new DateTime(2017, 07, 11)));
+			var calendar = CreateCalendar(
+				new Dictionary<DateTime, DayType>
+				{
+					{ new DateTime(2017, 04, 29), DayType.Holiday }
+				});
+			var fridayMorning = new DateTime(2017, 04, 28, 11, 0, 0);
+			var mondayMorning = new DateTime(2017, 05, 01, 11, 0, 0);
+
+			var workingDays = calendar.CountWorkingDaysInPeriod(fridayMorning, mondayMorning);
+			Assert.AreEqual(1, workingDays);
+		}
+
+		[TestMethod]
+		public void CountWorkingDaysInPeriod_ForRussia_IncludingTwoYears()
+		{
+			var calendar = new WorkingCalendar(new RussianWorkingDaysExceptionsProvider());
+			var startDateTime = new DateTime(2018, 12, 28);
+			var endDateTime = new DateTime(2019, 01, 10);
+
+			var workingDays = calendar.CountWorkingDaysInPeriod(startDateTime, endDateTime);
+			Assert.AreEqual(3, workingDays);
 		}
 	}
 }
