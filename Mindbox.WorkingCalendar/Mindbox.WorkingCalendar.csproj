@@ -7,7 +7,7 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<PackageId>Mindbox.WorkingCalendar</PackageId>
-		<PackageVersion>1.0.4</PackageVersion>
+		<PackageVersion>1.0.5</PackageVersion>
 		<Authors>Mindbox</Authors>
 		<Description>Helpers for counting working days and holidays. Includes working days exceptions for Russia.</Description>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -19,6 +19,8 @@
 	<PropertyGroup>
 		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 		<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
-		<Version>1.0.1</Version>
+		<Version>1.0.5</Version>
+		<AssemblyVersion>1.0.5.0</AssemblyVersion>
+		<FileVersion>1.0.5.0</FileVersion>
 	</PropertyGroup>
 </Project>
