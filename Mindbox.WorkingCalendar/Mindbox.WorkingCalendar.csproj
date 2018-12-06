@@ -19,6 +19,7 @@
 	<PropertyGroup>
 		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 		<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+		<PackageVersion>1.0.6</PackageVersion>
 		<Version>1.0.6</Version>
 		<AssemblyVersion>1.0.6.0</AssemblyVersion>
 		<FileVersion>1.0.6.0</FileVersion>
