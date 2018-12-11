@@ -34,7 +34,7 @@ namespace Mindbox.WorkingCalendar.Tests
 		}
 
 		[TestMethod]
-		public void AddWorkingDays_Subtract1Day_PreviosDayIsWorkday()
+		public void AddWorkingDays_Subtract1Day_PreviousDayIsWorkday()
 		{
 			var today = new DateTime(2018, 01, 03);
 
@@ -45,7 +45,7 @@ namespace Mindbox.WorkingCalendar.Tests
 		}
 
 		[TestMethod]
-		public void AddWorkingDays_Subtract1Day_PreviosDayIsHoliday()
+		public void AddWorkingDays_Subtract1Day_PreviousDayIsHoliday()
 		{
 			var today = new DateTime(2018, 01, 03);
 
