@@ -37,7 +37,7 @@ namespace Mindbox.WorkingCalendar
 				}
 				else
 				{
-					exceptions.Add(new WebException(
+					exceptions.Add(new XmlCalendarException(
 						$"Request to \"{response.ResponseUri}\" " +
 						$"returned status {(int)response.StatusCode} [{response.StatusDescription}]"));
 				}
@@ -45,5 +45,18 @@ namespace Mindbox.WorkingCalendar
 			throw new AggregateException(exceptions);
 
 		}
+
+		private class XmlCalendarException : WebException
+		{
+			private readonly StackTrace manuallyCapturedStackTrace;
+
+			public override string StackTrace => manuallyCapturedStackTrace.ToString();
+
+			public XmlCalendarException(string message) : base(message)
+			{
+				manuallyCapturedStackTrace = new StackTrace(skipFrames: 1, fNeedFileInfo: true);
+			}
+		}
+
 	}
 }
