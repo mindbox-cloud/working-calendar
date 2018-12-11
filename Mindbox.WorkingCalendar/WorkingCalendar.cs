@@ -44,7 +44,7 @@ namespace Mindbox.WorkingCalendar
 				case DayType.Weekend:
 					return false;
 				default:
-					throw new NotSupportedException($"Unknonwn DayType value: {GetDayType(dateTime)}");
+					throw new NotSupportedException($"Unknown DayType value: {GetDayType(dateTime)}");
 			}
 		}
 
