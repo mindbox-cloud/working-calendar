@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Sockets;
+using System.Runtime.ExceptionServices;
 using System.Xml.Linq;
 
 using RestSharp;
@@ -13,8 +14,6 @@ namespace Mindbox.WorkingCalendar
 {
 	public class RussianWorkingDaysExceptionsProvider : IWorkingDaysExceptionsProvider
 	{
-		private const int MaxRequestsAttempts = 3;
-
 		private readonly ConcurrentBag<int> loadedYears = new ConcurrentBag<int>();
 		private readonly ConcurrentDictionary<DateTime, DayType> workingDaysExceptions = new ConcurrentDictionary<DateTime, DayType>();
 
@@ -51,7 +50,7 @@ namespace Mindbox.WorkingCalendar
 		}
 		private IEnumerable<(DateTime Date, DayType DayType)> GetWorkingDaysExceptions(int year)
 		{
-			var exceptionsStringData = GetWorkingDaysExceptionsData(year);
+			var exceptionsStringData = new XmlCalendarClient().GetWorkingDaysExceptionsData(year);
 			var exceptionsXml = XDocument.Parse(exceptionsStringData);
 			var exceptionDayElements = exceptionsXml
 				.Root
@@ -85,31 +84,6 @@ namespace Mindbox.WorkingCalendar
 
 				yield return (Date: new DateTime(year, month, day), DayType: dayType);
 			}
-		}
-
-		private string GetWorkingDaysExceptionsData(int year)
-		{
-			var exceptions = new List<Exception>();
-			for (var attempt = 0; attempt < MaxRequestsAttempts; attempt++)
-			{
-				var response = new RestClient("http://xmlcalendar.ru").Get(new RestRequest($"data/ru/{year}/calendar.xml"));
-
-				if (response.IsSuccessful)
-				{
-					return response.Content;
-				}
-				else if (response.ErrorException != null)
-				{
-					exceptions.Add(response.ErrorException);
-				}
-				else
-				{
-					exceptions.Add(new WebException(
-						$"Request to \"{response.ResponseUri}\" " +
-						$"returned status {(int)response.StatusCode} [{response.StatusDescription}]"));
-				}
-			}
-			throw new AggregateException(exceptions);
 		}
 	}
 }
