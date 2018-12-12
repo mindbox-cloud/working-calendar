@@ -44,8 +44,7 @@ namespace Mindbox.WorkingCalendar
 		}
 		private IEnumerable<(DateTime Date, DayType DayType)> GetWorkingDaysExceptions(int year)
 		{
-			var exceptionsStringData = new XmlCalendarClient().GetWorkingDaysExceptionsData(year);
-			var exceptionsXml = XDocument.Parse(exceptionsStringData);
+			var exceptionsXml = new EmbeddedXmlCalendarProvider().GetCalendar(year);
 			var exceptionDayElements = exceptionsXml
 				.Root
 				.Element("days")

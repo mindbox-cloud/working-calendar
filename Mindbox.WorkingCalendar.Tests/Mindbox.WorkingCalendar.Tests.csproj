@@ -6,7 +6,12 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Moq" Version="4.10.1" />
+    <None Remove="Calendars\1961.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Calendars\1961.xml" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="MSTest.TestAdapter" Version="1.2.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.2.0" />
   </ItemGroup>

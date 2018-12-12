@@ -1,7 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="RestSharp" Version="106.2.2" />
+    <None Remove="Calendars\2018.xml" />
+    <None Remove="Calendars\2019.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Calendars\2018.xml" />
+    <EmbeddedResource Include="Calendars\2019.xml" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="System.Net.Http" Version="4.3.3" />
   </ItemGroup>
 	<PropertyGroup>
