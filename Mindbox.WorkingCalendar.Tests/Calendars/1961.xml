@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<calendar year="1961" lang="ru" date="1961.01.01">
-	<holidays>
-		<holiday id="6" title="Cosmonautics Day"/>
-	</holidays>
-	<days>
-		<day d="01.01" t="1" h="1" />
-	</days>
-</calendar>
