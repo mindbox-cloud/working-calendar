@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Xml.Linq;
 
 namespace Mindbox.WorkingCalendar
@@ -44,8 +46,7 @@ namespace Mindbox.WorkingCalendar
 		}
 		private IEnumerable<(DateTime Date, DayType DayType)> GetWorkingDaysExceptions(int year)
 		{
-			var exceptionsStringData = new XmlCalendarClient().GetWorkingDaysExceptionsData(year);
-			var exceptionsXml = XDocument.Parse(exceptionsStringData);
+			var exceptionsXml = GetXmlCalendar(year);
 			var exceptionDayElements = exceptionsXml
 				.Root
 				.Element("days")
@@ -77,6 +78,21 @@ namespace Mindbox.WorkingCalendar
 				}
 
 				yield return (Date: new DateTime(year, month, day), DayType: dayType);
+			}
+		}
+
+		private static XDocument GetXmlCalendar(int year)
+		{
+			var calendarFileName = $"Mindbox.WorkingCalendar.Calendars.{year}.xml";
+			var assembly = Assembly.GetExecutingAssembly();
+
+			if (assembly.GetManifestResourceNames().All(resourceName => resourceName != calendarFileName))
+				throw new FileNotFoundException(
+					$"Xml calendar for year {year} was not found");
+
+			using (var stream = assembly.GetManifestResourceStream(calendarFileName))
+			{
+				return XDocument.Load(stream);
 			}
 		}
 	}
