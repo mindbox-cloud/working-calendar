@@ -37,6 +37,6 @@
 		<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
 		<Version>1.0.9</Version>
 		<AssemblyVersion>1.0.9.0</AssemblyVersion>
-		<FileVersion>1.0.8.0</FileVersion>
+		<FileVersion>1.0.9.0</FileVersion>
 	</PropertyGroup>
 </Project>
