@@ -1,0 +1,1 @@
+For new russian calendar xml versions visit xmlcalendar.ru
