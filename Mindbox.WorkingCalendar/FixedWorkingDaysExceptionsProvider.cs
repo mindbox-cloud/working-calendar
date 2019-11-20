@@ -11,6 +11,7 @@ namespace Mindbox.WorkingCalendar
 		public FixedWorkingDaysExceptionsProvider(IDictionary<DateTime, DayType> workingDaysExceptions)
 		{
 			this.workingDaysExceptions = workingDaysExceptions ?? throw new ArgumentNullException(nameof(workingDaysExceptions));
+			SupportedDateRange = new DateRange(DateTime.MinValue, DateTime.MaxValue);
 		}
 
 		public bool TryGet(DateTime date, out DayType dayType)
@@ -25,5 +26,7 @@ namespace Mindbox.WorkingCalendar
 				.Where(pair => pair.Key < endDateTime)
 				.Select(pair => (pair.Key, pair.Value));
 		}
+
+		public DateRange SupportedDateRange { get; }
 	}
 }

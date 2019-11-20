@@ -6,7 +6,7 @@ namespace Mindbox.WorkingCalendar
 {
 	public sealed class WorkingCalendar
 	{
-		private static readonly Dictionary<DayOfWeek, int> dayOfWeekOffsets = new Dictionary<DayOfWeek, int>
+		private static readonly IReadOnlyDictionary<DayOfWeek, int> dayOfWeekOffsets = new Dictionary<DayOfWeek, int>
 		{
 			[DayOfWeek.Monday] = 0,
 			[DayOfWeek.Tuesday] = 1,
@@ -18,6 +18,8 @@ namespace Mindbox.WorkingCalendar
 		};
 
 		public static WorkingCalendar Russia { get; } = new WorkingCalendar(new RussianWorkingDaysExceptionsProvider());
+
+		public DateRange SupportedDateRange { get; set; }
 		
 		private readonly IWorkingDaysExceptionsProvider exceptionsProvider;
 
@@ -27,7 +29,9 @@ namespace Mindbox.WorkingCalendar
 				throw new ArgumentNullException(nameof(exceptionsProvider));
 			
 			this.exceptionsProvider = exceptionsProvider;
+			SupportedDateRange = exceptionsProvider.SupportedDateRange;
 		}
+
 
 		public WorkingCalendar(IDictionary<DateTime, DayType> exceptions) : this(new FixedWorkingDaysExceptionsProvider(exceptions))
 		{
@@ -107,7 +111,6 @@ namespace Mindbox.WorkingCalendar
 
 			return totalElapsedDays - weekendDays - nonWeekendHolidays + workingWeekendDays;
 		}
-
 
 		/// <summary>
 		/// Computes DateTime in `daysToAdd` working days after `dateTime`.

@@ -9,5 +9,7 @@ namespace Mindbox.WorkingCalendar
 		bool TryGet(DateTime date, out DayType dayType);
 
 		IEnumerable<(DateTime Date, DayType DayType)> GetExceptionsInPeriod(DateTime startDateTime, DateTime endDateTime);
+		
+		DateRange SupportedDateRange { get; }
 	}
 }
