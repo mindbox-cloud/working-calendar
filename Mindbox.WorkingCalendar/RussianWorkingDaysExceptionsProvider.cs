@@ -116,10 +116,8 @@ namespace Mindbox.WorkingCalendar
 			var startYear = years.Min();
 			var endYear = years.Max();
 			var startDate = new DateTime(startYear,1,1);
-			var endDate = new DateTime(endYear, 1, 1);
+			var endDate = new DateTime(endYear, 12, 31);
 
-			//1.1.2020 -> + 1 year -> 1.1.2021 -> -1 day -> 31.12.2020 
-			endDate = endDate.AddYears(1).Subtract(TimeSpan.FromDays(1));
 			return new DateRange(startDate, endDate);
 		}
 		
