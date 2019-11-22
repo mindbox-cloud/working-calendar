@@ -11,7 +11,6 @@ namespace Mindbox.WorkingCalendar
 		public DateTime Start { get; }
 		public DateTime End { get; }
 
-		
 		/// <summary>
 		/// Represent date range. Uses only date information for processing.
 		/// </summary>

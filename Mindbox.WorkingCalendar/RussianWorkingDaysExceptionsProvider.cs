@@ -21,7 +21,12 @@ namespace Mindbox.WorkingCalendar
 
 		public RussianWorkingDaysExceptionsProvider()
 		{
-			SupportedDateRange = GetSupportedDateRange(GetSupportedYears());
+			var years = GetSupportedYears();
+			var startYear = years.Min();
+			var endYear = years.Max();
+			var startDate = new DateTime(startYear,1,1);
+			var endDate = new DateTime(endYear, 12, 31);
+			SupportedDateRange = new DateRange(startDate, endDate);
 		}
 		
 		public bool TryGet(DateTime date, out DayType dayType)
@@ -109,16 +114,6 @@ namespace Mindbox.WorkingCalendar
 			{
 				return XDocument.Load(stream);
 			}
-		}
-
-		public DateRange GetSupportedDateRange(IEnumerable<int> years)
-		{
-			var startYear = years.Min();
-			var endYear = years.Max();
-			var startDate = new DateTime(startYear,1,1);
-			var endDate = new DateTime(endYear, 12, 31);
-
-			return new DateRange(startDate, endDate);
 		}
 		
 		private IEnumerable<int> GetSupportedYears()

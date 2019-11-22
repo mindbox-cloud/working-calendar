@@ -19,7 +19,7 @@ namespace Mindbox.WorkingCalendar
 
 		public static WorkingCalendar Russia { get; } = new WorkingCalendar(new RussianWorkingDaysExceptionsProvider());
 
-		public DateRange SupportedDateRange { get; set; }
+		public DateRange SupportedDateRange { get; }
 		
 		private readonly IWorkingDaysExceptionsProvider exceptionsProvider;
 

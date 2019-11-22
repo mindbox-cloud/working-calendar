@@ -16,7 +16,7 @@ namespace Mindbox.WorkingCalendar.Tests
 		private static readonly DateTime day22 = new DateTime(2019, 11, 22);
 
 		[TestMethod]
-		public void IsInRage()
+		public void IsInRange()
 		{
 			var range = new DateRange(day19, day21);
 
@@ -27,7 +27,7 @@ namespace Mindbox.WorkingCalendar.Tests
 		
 		
 		[TestMethod]
-		public void IsNotInRage()
+		public void IsNotInRange()
 		{
 			var range = new DateRange(day20, day21);
 
