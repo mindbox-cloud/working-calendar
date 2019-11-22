@@ -30,45 +30,6 @@ namespace Mindbox.WorkingCalendar
 			return Start <= date && date <= End;
 		}
 
-		public DateRange Intersect(DateTime startDate, DateTime endDate)
-		{
-			var range = new DateRange(startDate, endDate);
-			return Intersect(this, range);
-		}
-
-		/// <summary>
-		/// Return intersection with current date range.
-		/// </summary>
-		/// <returns>Return null if no intersection.</returns>
-		public DateRange Intersect(DateRange other)
-		{
-			return Intersect(this, other);
-		}
-
-		/// <summary>
-		/// Return intersection with current date range.
-		/// </summary>
-		/// <returns>Return null if no intersection.</returns>
-		public static DateRange Intersect(DateRange first, DateRange second)
-		{
-			if (first == null)
-				throw new ArgumentNullException(nameof(first));
-			if (second == null)
-				throw new ArgumentNullException(nameof(second));
-
-			if (first.Start > second.Start)
-				(first, second) = (second, first);
-
-			if (second.Start <= first.End)
-			{
-				var start = Min(second.Start, first.End);
-				var end = Min(first.End, second.End);
-				return new DateRange(start, end);
-			}
-
-			return null;
-		}
-
 		public override string ToString()
 		{
 			return $"{Start.ToShortDateString()} - {End.ToShortDateString()}";
@@ -96,11 +57,6 @@ namespace Mindbox.WorkingCalendar
 		public static bool operator !=(DateRange right, DateRange left)
 		{
 			return !(right == left);
-		}
-
-		private static DateTime Min(DateTime first, DateTime second)
-		{
-			return first <= second ? first : second;
 		}
 	}
 }
