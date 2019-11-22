@@ -92,5 +92,31 @@ namespace Mindbox.WorkingCalendar.Tests
 
 			Assert.AreEqual(expected, result);
 		}
+
+		[TestMethod]
+		public void EqualOperatorTest()
+		{
+			var first = new DateRange(day19, day21);
+			var second = new DateRange(day19, day21);
+			DateRange nullable = null;
+
+			Assert.IsTrue(first == first);
+			Assert.IsTrue(first == second);
+			Assert.IsTrue(second == first);
+			Assert.IsTrue(nullable == null);
+			Assert.IsTrue(null == nullable);
+		}
+		
+		[TestMethod]
+		public void NotEqualOperatorTest()
+		{
+			var first = new DateRange(day20, day21);
+			var second = new DateRange(day19, day21);
+			
+			Assert.IsTrue(first != second);
+			Assert.IsTrue(second != first);
+			Assert.IsTrue(first != null);
+			Assert.IsTrue(null != first);
+		}
 	}
 }

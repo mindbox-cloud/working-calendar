@@ -75,7 +75,10 @@ namespace Mindbox.WorkingCalendar
 
 		public override bool Equals(object obj) => obj is DateRange range && Equals(range);
 
-		public bool Equals(DateRange other) => this == other;
+		public bool Equals(DateRange other)
+		{
+			return Start == other.Start && End == other.End;
+		}
 
 		public override int GetHashCode()
 		{
@@ -87,9 +90,15 @@ namespace Mindbox.WorkingCalendar
 
 		public static bool operator ==(DateRange right, DateRange left)
 		{
-			return !ReferenceEquals(right, null) 
-				&& !ReferenceEquals(left, null)
-				&& right.Start == left.Start && right.End == left.End;
+			var isLeftNull = ReferenceEquals(left, null);
+			var isRightNull = ReferenceEquals(right, null);
+			
+			if (isLeftNull && isRightNull)
+            	return true;
+           	if (isLeftNull || isRightNull)
+            	return false;
+            
+            return right.Equals(left);
 		}
 
 		public static bool operator !=(DateRange right, DateRange left)
