@@ -72,14 +72,7 @@ namespace Mindbox.WorkingCalendar
 		{
 			return $"{Start.ToShortDateString()} - {End.ToShortDateString()}";
 		}
-
-		public override bool Equals(object obj) => obj is DateRange range && Equals(range);
-
-		public bool Equals(DateRange other)
-		{
-			return Start == other.Start && End == other.End;
-		}
-
+		
 		public override int GetHashCode()
 		{
 			unchecked
@@ -88,22 +81,35 @@ namespace Mindbox.WorkingCalendar
 			}
 		}
 
-		public static bool operator ==(DateRange right, DateRange left)
+		public override bool Equals(object obj)
 		{
-			var isLeftNull = ReferenceEquals(left, null);
-			var isRightNull = ReferenceEquals(right, null);
-			
-			if (isLeftNull && isRightNull)
-            	return true;
-           	if (isLeftNull || isRightNull)
-            	return false;
-            
-            return right.Equals(left);
+			if (ReferenceEquals(null, obj))
+				return false;
+			if (ReferenceEquals(this, obj))
+				return true;
+			if (obj.GetType() != this.GetType())
+				return false;
+			return Equals((DateRange)obj);
+		}
+		
+		public static bool operator ==(DateRange left, DateRange right)
+		{
+			if (ReferenceEquals(left, null) && ReferenceEquals(right, null))
+				return true;
+			if (ReferenceEquals(left, null) || ReferenceEquals(right, null))
+				return false;
+
+			return left.Equals(right);
 		}
 
-		public static bool operator !=(DateRange right, DateRange left)
+		public static bool operator !=(DateRange left, DateRange right)
 		{
-			return !(right == left);
+			return !(left == right);
+		}
+
+		protected bool Equals(DateRange other)
+		{
+			return Start.Equals(other.Start) && End.Equals(other.End);
 		}
 
 		private static DateTime Min(DateTime first, DateTime second)
