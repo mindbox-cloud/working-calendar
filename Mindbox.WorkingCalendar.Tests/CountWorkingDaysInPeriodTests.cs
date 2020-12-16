@@ -328,7 +328,6 @@ namespace Mindbox.WorkingCalendar.Tests
 			Assert.AreEqual(expected, workingDays);
 		}
 
-
 		[DataRow(18, 1)]
 		[DataRow(19, 2)]
 		[DataRow(20, 2)]
