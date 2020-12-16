@@ -109,7 +109,8 @@ namespace Mindbox.WorkingCalendar
 			}
 			totalElapsedDays += (int)dateParts.TotalDays;
 
-			return totalElapsedDays - weekendDays - nonWeekendHolidays + workingWeekendDays;
+			return totalElapsedDays - weekendDays - nonWeekendHolidays + workingWeekendDays +
+				(startDateTimeRounded.DayOfWeek == DayOfWeek.Sunday ? 1 : 0);
 		}
 
 		/// <summary>

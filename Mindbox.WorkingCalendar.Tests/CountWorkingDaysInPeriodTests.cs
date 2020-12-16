@@ -221,5 +221,154 @@ namespace Mindbox.WorkingCalendar.Tests
 			var workingDays = calendar.CountWorkingDaysInPeriod(startDateTime, endDateTime);
 			Assert.AreEqual(3, workingDays);
 		}
+
+		[DataRow(13, 0)]
+		[DataRow(14, 0)]
+		[DataRow(15, 1)]
+		[DataRow(16, 2)]
+		[DataRow(17, 3)]
+		[DataRow(18, 4)]
+		[DataRow(19, 5)]
+		[DataRow(20, 5)]
+		[DataRow(21, 5)]
+		[DataRow(22, 6)]
+		[DataRow(29, 11)]
+		[DataTestMethod]
+		public void CountWorkingDaysInPeriod_FromSaturday(int endDay, int expected)
+		{
+			var calendar = new WorkingCalendar(new RussianWorkingDaysExceptionsProvider());
+			var startDateTime = new DateTime(2020, 12, 12);
+			var endDateTime = new DateTime(2020, 12, endDay);
+
+			var workingDays = calendar.CountWorkingDaysInPeriod(startDateTime, endDateTime);
+			Assert.AreEqual(expected, workingDays);
+		}
+
+		[DataRow(14, 0)]
+		[DataRow(15, 1)]
+		[DataRow(16, 2)]
+		[DataRow(17, 3)]
+		[DataRow(18, 4)]
+		[DataRow(19, 5)]
+		[DataRow(20, 5)]
+		[DataRow(21, 5)]
+		[DataRow(22, 6)]
+		[DataRow(29, 11)]
+		[DataTestMethod]
+		public void CountWorkingDaysInPeriod_FromSunday(int endDay, int expected)
+		{
+			var calendar = new WorkingCalendar(new RussianWorkingDaysExceptionsProvider());
+			var startDateTime = new DateTime(2020, 12, 13);
+			var endDateTime = new DateTime(2020, 12, endDay);
+
+			var workingDays = calendar.CountWorkingDaysInPeriod(startDateTime, endDateTime);
+			Assert.AreEqual(expected, workingDays);
+		}
+
+		[DataRow(15, 1)]
+		[DataRow(16, 2)]
+		[DataRow(17, 3)]
+		[DataRow(18, 4)]
+		[DataRow(19, 5)]
+		[DataRow(20, 5)]
+		[DataRow(21, 5)]
+		[DataRow(22, 6)]
+		[DataRow(23, 7)]
+		[DataRow(29, 11)]
+		[DataTestMethod]
+		public void CountWorkingDaysInPeriod_FromMonday(int endDay, int expected)
+		{
+			var calendar = new WorkingCalendar(new RussianWorkingDaysExceptionsProvider());
+			var startDateTime = new DateTime(2020, 12, 14);
+			var endDateTime = new DateTime(2020, 12, endDay);
+
+			var workingDays = calendar.CountWorkingDaysInPeriod(startDateTime, endDateTime);
+			Assert.AreEqual(expected, workingDays);
+		}
+
+		[DataRow(16, 1)]
+		[DataRow(17, 2)]
+		[DataRow(18, 3)]
+		[DataRow(19, 4)]
+		[DataRow(20, 4)]
+		[DataRow(21, 4)]
+		[DataRow(22, 5)]
+		[DataRow(23, 6)]
+		[DataRow(24, 7)]
+		[DataRow(30, 11)]
+		[DataTestMethod]
+		public void CountWorkingDaysInPeriod_FromTuesday(int endDay, int expected)
+		{
+			var calendar = new WorkingCalendar(new RussianWorkingDaysExceptionsProvider());
+			var startDateTime = new DateTime(2020, 12, 15);
+			var endDateTime = new DateTime(2020, 12, endDay);
+
+			var workingDays = calendar.CountWorkingDaysInPeriod(startDateTime, endDateTime);
+			Assert.AreEqual(expected, workingDays);
+		}
+
+		[DataRow(17, 1)]
+		[DataRow(18, 2)]
+		[DataRow(19, 3)]
+		[DataRow(20, 3)]
+		[DataRow(21, 3)]
+		[DataRow(22, 4)]
+		[DataRow(23, 5)]
+		[DataRow(24, 6)]
+		[DataRow(25, 7)]
+		[DataRow(31, 11)]
+		[DataTestMethod]
+		public void CountWorkingDaysInPeriod_FromWednesday(int endDay, int expected)
+		{
+			var calendar = new WorkingCalendar(new RussianWorkingDaysExceptionsProvider());
+			var startDateTime = new DateTime(2020, 12, 16);
+			var endDateTime = new DateTime(2020, 12, endDay);
+
+			var workingDays = calendar.CountWorkingDaysInPeriod(startDateTime, endDateTime);
+			Assert.AreEqual(expected, workingDays);
+		}
+
+
+		[DataRow(18, 1)]
+		[DataRow(19, 2)]
+		[DataRow(20, 2)]
+		[DataRow(21, 2)]
+		[DataRow(22, 3)]
+		[DataRow(23, 4)]
+		[DataRow(24, 5)]
+		[DataRow(25, 6)]
+		[DataRow(26, 7)]
+		[DataRow(31, 10)]
+		[DataTestMethod]
+		public void CountWorkingDaysInPeriod_FromThursday(int endDay, int expected)
+		{
+			var calendar = new WorkingCalendar(new RussianWorkingDaysExceptionsProvider());
+			var startDateTime = new DateTime(2020, 12, 17);
+			var endDateTime = new DateTime(2020, 12, endDay);
+
+			var workingDays = calendar.CountWorkingDaysInPeriod(startDateTime, endDateTime);
+			Assert.AreEqual(expected, workingDays);
+		}
+
+		[DataRow(19, 1)]
+		[DataRow(20, 1)]
+		[DataRow(21, 1)]
+		[DataRow(22, 2)]
+		[DataRow(23, 3)]
+		[DataRow(24, 4)]
+		[DataRow(25, 5)]
+		[DataRow(26, 6)]
+		[DataRow(27, 6)]
+		[DataRow(31, 9)]
+		[DataTestMethod]
+		public void CountWorkingDaysInPeriod_FromFriday(int endDay, int expected)
+		{
+			var calendar = new WorkingCalendar(new RussianWorkingDaysExceptionsProvider());
+			var startDateTime = new DateTime(2020, 12, 18);
+			var endDateTime = new DateTime(2020, 12, endDay);
+
+			var workingDays = calendar.CountWorkingDaysInPeriod(startDateTime, endDateTime);
+			Assert.AreEqual(expected, workingDays);
+		}
 	}
 }
