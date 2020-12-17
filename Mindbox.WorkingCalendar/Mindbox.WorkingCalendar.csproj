@@ -27,7 +27,7 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<PackageId>Mindbox.WorkingCalendar</PackageId>
-		<PackageVersion>1.0.15</PackageVersion>
+		<PackageVersion>1.0.16</PackageVersion>
 		<Authors>Mindbox</Authors>
 		<Description>Helpers for counting working days and holidays. Includes working days exceptions for Russia.</Description>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
