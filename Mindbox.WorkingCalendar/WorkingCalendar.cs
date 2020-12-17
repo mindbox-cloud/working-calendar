@@ -86,7 +86,9 @@ namespace Mindbox.WorkingCalendar
 			var totalElapsedDays = (int) (endDateTimeRounded - startDateTimeRounded).TotalDays;
 			
 			var daysFromNearestMonday = dayOfWeekOffsets[startDateTimeRounded.DayOfWeek] + totalElapsedDays;
-			var weekendDays = (daysFromNearestMonday / 7) * 2 + (daysFromNearestMonday % 7 == 6 ? 1 : 0);
+			var weekendDays = (daysFromNearestMonday / 7) * 2
+				+ (daysFromNearestMonday % 7 == 6 ? 1 : 0)
+				- (startDateTimeRounded.DayOfWeek == DayOfWeek.Sunday ? 1 : 0);
 
 			var exceptionsInPeriod = exceptionsProvider.GetExceptionsInPeriod(startDateTimeRounded, endDateTimeRounded).ToArray();
 
