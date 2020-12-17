@@ -287,6 +287,27 @@ namespace Mindbox.WorkingCalendar.Tests
 			Assert.AreEqual(expected, workingDays);
 		}
 
+		[DataRow(14, 0)]
+		[DataRow(15, 1)]
+		[DataRow(16, 2)]
+		[DataRow(17, 3)]
+		[DataRow(18, 4)]
+		[DataRow(19, 5)]
+		[DataRow(20, 5)]
+		[DataRow(21, 5)]
+		[DataRow(22, 6)]
+		[DataRow(29, 11)]
+		[DataTestMethod]
+		public void CountWorkingDaysInPeriod_FromSundayWithTime(int endDay, int expected)
+		{
+			var calendar = new WorkingCalendar(new RussianWorkingDaysExceptionsProvider());
+			var startDateTime = new DateTime(2020, 12, 13, 0, 0, 1);
+			var endDateTime = new DateTime(2020, 12, endDay);
+
+			var workingDays = calendar.CountWorkingDaysInPeriod(startDateTime, endDateTime);
+			Assert.AreEqual(expected, workingDays);
+		}
+
 		[DataRow(15, 1)]
 		[DataRow(16, 2)]
 		[DataRow(17, 3)]
