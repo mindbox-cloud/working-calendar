@@ -22,7 +22,7 @@
     <EmbeddedResource Include="Calendars\2021.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.Net.Http" Version="4.3.3" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
