@@ -108,7 +108,7 @@ namespace Mindbox.WorkingCalendar
 
 			if (assembly.GetManifestResourceNames().All(resourceName => resourceName != calendarFileName))
 				throw new FileNotFoundException(
-					$"Xml calendar for year {year} was not found");
+					$"Xml calendar for year {year} was not found, try found it on http://xmlcalendar.ru/");
 
 			using (var stream = assembly.GetManifestResourceStream(calendarFileName))
 			{
