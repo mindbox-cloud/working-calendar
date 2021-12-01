@@ -9,6 +9,7 @@
     <None Remove="Calendars\2019.xml" />
     <None Remove="Calendars\2020.xml" />
     <None Remove="Calendars\2021.xml" />
+    <None Remove="Calendars\2022.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Calendars\2013.xml" />
@@ -20,6 +21,7 @@
     <EmbeddedResource Include="Calendars\2019.xml" />
     <EmbeddedResource Include="Calendars\2020.xml" />
     <EmbeddedResource Include="Calendars\2021.xml" />
+    <EmbeddedResource Include="Calendars\2022.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
