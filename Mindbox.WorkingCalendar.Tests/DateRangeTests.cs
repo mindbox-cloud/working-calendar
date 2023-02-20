@@ -100,7 +100,9 @@ namespace Mindbox.WorkingCalendar.Tests
 			var second = new DateRange(day19, day21);
 			DateRange nullable = null;
 
+#pragma warning disable CS1718 // Comparison made to same variable
 			Assert.IsTrue(first == first);
+#pragma warning restore CS1718 // Comparison made to same variable
 			Assert.IsTrue(first == second);
 			Assert.IsTrue(second == first);
 			Assert.IsTrue(nullable == null);
