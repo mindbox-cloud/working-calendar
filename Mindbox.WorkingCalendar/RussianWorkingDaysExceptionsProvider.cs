@@ -93,6 +93,9 @@ namespace Mindbox.WorkingCalendar
 					case "2":
 						dayType = DayType.Short;
 						break;
+					case "3":
+						dayType = DayType.Working;
+						break;
 					default:
 						throw new NotSupportedException();
 				}
