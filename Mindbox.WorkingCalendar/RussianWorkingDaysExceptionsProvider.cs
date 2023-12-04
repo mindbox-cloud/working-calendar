@@ -28,7 +28,7 @@ namespace Mindbox.WorkingCalendar
 			var endDate = new DateTime(endYear, 12, 31);
 			SupportedDateRange = new DateRange(startDate, endDate);
 		}
-		
+
 		public bool TryGet(DateTime date, out DayType dayType)
 		{
 			LazyLoadForYear(date.Year);
@@ -93,6 +93,9 @@ namespace Mindbox.WorkingCalendar
 					case "2":
 						dayType = DayType.Short;
 						break;
+					case "3":
+						dayType = DayType.Working;
+						break;
 					default:
 						throw new NotSupportedException();
 				}
@@ -115,7 +118,7 @@ namespace Mindbox.WorkingCalendar
 				return XDocument.Load(stream);
 			}
 		}
-		
+
 		private IEnumerable<int> GetSupportedYears()
 		{
 			var pattern = string.Format(CalendarFileNameTemplate, "(\\d+)");
