@@ -12,6 +12,7 @@
     <None Remove="Calendars\2022.xml" />
     <None Remove="Calendars\2023.xml" />
     <None Remove="Calendars\2024.xml" />
+    <None Remove="Calendars\2025.xml" />    
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Calendars\2013.xml" />
@@ -26,6 +27,7 @@
     <EmbeddedResource Include="Calendars\2022.xml" />
     <EmbeddedResource Include="Calendars\2023.xml" />
     <EmbeddedResource Include="Calendars\2024.xml" />
+    <EmbeddedResource Include="Calendars\2025.xml" />    
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
@@ -33,7 +35,7 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<PackageId>Mindbox.WorkingCalendar</PackageId>
-		<PackageVersion>1.0.22</PackageVersion>
+		<PackageVersion>1.0.23</PackageVersion>
 		<Authors>Mindbox</Authors>
 		<Description>Helpers for counting working days and holidays. Includes working days exceptions for Russia.</Description>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
